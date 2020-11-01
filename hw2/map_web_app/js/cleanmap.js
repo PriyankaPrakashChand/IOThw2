@@ -48,18 +48,11 @@ function getCurrentLocation(position) {
   console.log("longitude= " + window.startLocation.longitude);
 }
 
-//------------------jquery post location to socker server-----------------------
-// function postLocation() {
-//   url = "http://localhost:8089";
-//   $.post(url, {
-//     sLat: window.startMarker._latlng.lat,
-//     slng: window.startMarker._latlng.lng,
-//     elat: window.endMarker._latlng.lat,
-//     elng: window.endMarker._latlng.lng,
-//   });
-// }
+//------------------------------watch Location-----------------------------------
+map.locate({ setView: true, watch: true });
+map.on("locationfound", postLocation);
 
-//------------------------------------------------------------------------
+//------------------jquery post location to socker server-----------------------
 
 //  click to set destination
 map.on("click", function (e) {
@@ -88,7 +81,7 @@ map.on("click", function (e) {
 //---------------calculate and show Route on map--------------------------------
 function updateRouteLayer() {
   directions = MQ.routing.directions();
-  directions.route({
+  window.directions.route({
     locations: [
       {
         latLng: {
@@ -124,18 +117,3 @@ function postLocation() {
 }
 
 //------------------------------------------------------------------------
-// // single click to set current position
-// window.startMarker.on("movend", function (e) {
-//   alert(hello);
-//   //   var currentLocation = [
-//   //     window.startMarker.latlng.lat,
-//   //     window.startMarker.latlng.lng,
-//   //   ];
-//   //   // move the marker
-//   //   window.startMarker.setLatLng(currentLocation);
-//   //   // adjust the the view
-//   //   window.map.setView(currentLocation);
-//   //   console.log("start moved");
-//   //   // update route
-//   //   updateRouteLayer();
-// });
